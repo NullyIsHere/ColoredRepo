@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Color</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+
+        #colorPicker {
+            width: 100px;
+            height: 100px;
+        }
+
+        #colorInfo {
+            margin-top: 20px;
+            font-size: 30px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Selector de Color</h1>
+    
+    <input type="color" id="colorPicker" value="#ff0000" onchange="updateColor()">
+    
+    <div id="colorInfo"></div>
+
+    <script>
+        function updateColor() {
+            // Obtener el valor hexadecimal del color seleccionado
+            var colorHex = document.getElementById("colorPicker").value;
+
+            // Llamar a la función color_info con el valor hexadecimal
+            color_info(colorHex);
+        }
+
+        function color_info(hex_color) {
+            // Eliminar el posible símbolo '#' del código de color si está presente
+            hex_color = hex_color.replace('#', '');
+
+            // Convertir los valores hexadecimales a enteros
+            var rgb = [
+                parseInt(hex_color.slice(0, 2), 16),
+                parseInt(hex_color.slice(2, 4), 16),
+                parseInt(hex_color.slice(4, 6), 16)
+            ];
+
+            // Obtener los valores de rojo, verde y azul
+            var red = rgb[0], green = rgb[1], blue = rgb[2];
+
+            // Calcular la intensidad de cada color
+            var total = red + green + blue;
+            var red_percent = (red / total) * 100;
+            var green_percent = (green / total) * 100;
+            var blue_percent = (blue / total) * 100;
+
+            // Determinar el color dominante
+            var max_color = Math.max(...rgb);
+            var dominant_color = (max_color === red) ? "rojo" : (max_color === green) ? "verde" : "azul";
+
+            // Construir la información del color
+            var colorInfo = "Color RGB: " + rgb +
+                "<br>Rojo: " + red + ", Verde: " + green + ", Azul: " + blue +
+                "<br>Porcentaje de Rojo: " + red_percent.toFixed(2) + "%" +
+                "<br>Porcentaje de Verde: " + green_percent.toFixed(2) + "%" +
+                "<br>Porcentaje de Azul: " + blue_percent.toFixed(2) + "%" +
+                "<br>Color dominante: " + dominant_color;
+
+            // Mostrar la información en la página
+            document.getElementById("colorInfo").innerHTML = colorInfo;
+        }
+      updateColor()
+    </script>
+</body>
+</html>
