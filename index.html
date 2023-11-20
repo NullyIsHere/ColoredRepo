@@ -53,7 +53,7 @@
     </style>
 </head>
 <body>
-    <div class="logo">colored.altex.page</div>
+    <div class="logo">YourLogo</div>
     <div class="content">
         <input type="color" id="colorPicker">
         <div id="colorInfo"></div>
@@ -69,6 +69,20 @@
         const colorPicker = document.getElementById('colorPicker');
         const colorInfo = document.getElementById('colorInfo');
         const colorBoxes = document.querySelectorAll('.colorBox');
+
+        // Function to extract color parameter from URL
+        function getColorFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const colorParam = urlParams.get('c');
+            return colorParam;
+        }
+
+        // Set color picker value and trigger input event
+        const colorParam = getColorFromURL();
+        if (colorParam) {
+            colorPicker.value = colorParam;
+            colorPicker.dispatchEvent(new Event('input'));
+        }
 
         colorPicker.addEventListener('input', function() {
             const selectedColor = this.value;
@@ -93,7 +107,7 @@
             const greenPercentage = ((rgb[1] / totalColorValue) * 100).toFixed(2);
             const bluePercentage = ((rgb[2] / totalColorValue) * 100).toFixed(2);
 
-            colorInfo.innerHTML += `<br>Red: ${redPercentage}% | Green: ${greenPercentage}% | Blue: ${bluePercentage}%`;
+            colorInfo.innerHTML += `<br>Red %: ${redPercentage}% | Green %: ${greenPercentage}% | Blue %: ${bluePercentage}%`;
 
             // Approximate representation of drops of color for every component
             const dropsOfRed = Math.round(rgb[0] / 15);
