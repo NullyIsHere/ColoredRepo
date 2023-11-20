@@ -53,7 +53,7 @@
     </style>
 </head>
 <body>
-    <div class="logo">colored.altex.page</div>
+    <div class="logo">Altex.Page</div>
     <div class="content">
         <input type="color" id="colorPicker">
         <div id="colorInfo"></div>
@@ -87,20 +87,9 @@
             // Display RGB values
             colorInfo.innerHTML += `<br>RGB: ${rgb.join(', ')}`;
 
-            // Calculate the percentage of each color component
-            const totalColorValue = rgb[0] + rgb[1] + rgb[2];
-            const redPercentage = ((rgb[0] / totalColorValue) * 100).toFixed(2);
-            const greenPercentage = ((rgb[1] / totalColorValue) * 100).toFixed(2);
-            const bluePercentage = ((rgb[2] / totalColorValue) * 100).toFixed(2);
-
-            colorInfo.innerHTML += `<br>Red: ${redPercentage}% | Green: ${greenPercentage}% | Blue: ${bluePercentage}%`;
-
-            // Approximate representation of drops of color for every component
-            const dropsOfRed = Math.round(rgb[0] / 15);
-            const dropsOfGreen = Math.round(rgb[1] / 15);
-            const dropsOfBlue = Math.round(rgb[2] / 15);
-
-            colorInfo.innerHTML += `<br>Approx. Drops of Red: ${dropsOfRed} | Approx. Drops of Green: ${dropsOfGreen} | Approx. Drops of Blue: ${dropsOfBlue}`;
+            // Approximate representation of drops of color
+            const dropsOfColor = Math.round((rgb[0] + rgb[1] + rgb[2]) / 15);
+            colorInfo.innerHTML += `<br>Approx. Drops of Color: ${dropsOfColor}`;
 
             // Set background color for representation boxes
             colorBoxes.forEach(box => {
