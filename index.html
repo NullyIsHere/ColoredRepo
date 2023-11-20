@@ -1,126 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Selector</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Lexend', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0fff4; /* Mint green background color */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Selector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Lexend:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Lexend', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0fff4;
+      /* Mint green background color */
+    }
 
-        /* Top-left logo zone */
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-family: 'Manrope', sans-serif;
-            font-size: 24px;
-            color: #333; /* Dark text color */
-        }
+    /* Top-left logo zone */
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 24px;
+      color: #333;
+      /* Dark text color */
+    }
 
-        /* Main content container */
-        .content {
-            margin-top: 80px; /* Provide space below the logo */
-            text-align: center;
-        }
+    /* Main content container */
+    .content {
+      margin-top: 80px;
+      /* Provide space below the logo */
+      text-align: center;
+    }
 
-        /* Color picker and info styling */
-        #colorPicker {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-        }
+    /* Color picker and info styling */
+    #colorPicker {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
 
-        #colorInfo {
-            font-size: 18px;
-            color: #333; /* Dark text color */
-        }
+    #colorInfo {
+      font-size: 18px;
+      color: #333;
+      /* Dark text color */
+    }
 
-        /* Representation box styling */
-        .colorBox {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+    /* Representation box styling */
+    .colorBox {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
+
 <body>
-    <div class="logo">YourLogo</div>
-    <div class="content">
-        <input type="color" id="colorPicker">
-        <div id="colorInfo"></div>
-        <div id="colorRepresentation">
-            <div class="colorBox" id="colorBox1"></div>
-            <div class="colorBox" id="colorBox2"></div>
-            <div class="colorBox" id="colorBox3"></div>
-            <!-- Add more color boxes if needed -->
-        </div>
+  <div class="logo">colored.altex.page</div>
+  <div class="content">
+    <input type="color" id="colorPicker">
+    <div id="colorInfo"></div>
+    <div id="colorRepresentation">
+      <div class="colorBox" id="colorBox1"></div>
+      <div class="colorBox" id="colorBox2"></div>
+      <div class="colorBox" id="colorBox3"></div>
+      <!-- Add more color boxes if needed -->
     </div>
+  </div>
 
-    <script>
-        const colorPicker = document.getElementById('colorPicker');
-        const colorInfo = document.getElementById('colorInfo');
-        const colorBoxes = document.querySelectorAll('.colorBox');
+  <script>
+    const colorPicker = document.getElementById('colorPicker');
+    const colorInfo = document.getElementById('colorInfo');
+    const colorBoxes = document.querySelectorAll('.colorBox');
 
-        // Function to extract color parameter from URL
-        function getColorFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const colorParam = urlParams.get('c');
-            return colorParam;
-        }
+    // Function to extract color parameter from URL
+    function getColorFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const colorParam = urlParams.get('c');
+      return colorParam;
+    }
 
-        // Set color picker value and trigger input event
-        const colorParam = getColorFromURL();
-        if (colorParam) {
-            colorPicker.value = colorParam;
-            colorPicker.dispatchEvent(new Event('input'));
-        }
+    // Set color picker value and trigger input event
+    const colorParam = getColorFromURL();
+    if (colorParam) {
+      colorPicker.value = colorParam;
+      colorPicker.dispatchEvent(new Event('input'));
+    }
 
-        colorPicker.addEventListener('input', function() {
-            const selectedColor = this.value;
+    colorPicker.addEventListener('input', function () {
+      const selectedColor = this.value;
 
-            // Show the selected color code
-            colorInfo.textContent = `Selected Color: ${selectedColor}`;
+      // Show the selected color code
+      colorInfo.textContent = `Selected Color: ${selectedColor}`;
 
-            // Convert hex to RGB
-            const hex = selectedColor.substring(1); // remove #
-            const rgb = [
-                parseInt(hex.substring(0, 2), 16),
-                parseInt(hex.substring(2, 4), 16),
-                parseInt(hex.substring(4, 6), 16)
-            ];
+      // Convert hex to RGB
+      const hex = selectedColor.substring(1); // remove #
+      const rgb = [
+        parseInt(hex.substring(0, 2), 16),
+        parseInt(hex.substring(2, 4), 16),
+        parseInt(hex.substring(4, 6), 16)
+      ];
 
-            // Display RGB values
-            colorInfo.innerHTML += `<br>RGB: ${rgb.join(', ')}`;
+      // Display RGB values
+      colorInfo.innerHTML += `<br>RGB: ${rgb.join(', ')}`;
 
-            // Calculate the percentage of each color component
-            const totalColorValue = rgb[0] + rgb[1] + rgb[2];
-            const redPercentage = ((rgb[0] / totalColorValue) * 100).toFixed(2);
-            const greenPercentage = ((rgb[1] / totalColorValue) * 100).toFixed(2);
-            const bluePercentage = ((rgb[2] / totalColorValue) * 100).toFixed(2);
+      // Calculate the percentage of each color component
+      const totalColorValue = rgb[0] + rgb[1] + rgb[2];
+      const redPercentage = ((rgb[0] / totalColorValue) * 100).toFixed(2);
+      const greenPercentage = ((rgb[1] / totalColorValue) * 100).toFixed(2);
+      const bluePercentage = ((rgb[2] / totalColorValue) * 100).toFixed(2);
 
-            colorInfo.innerHTML += `<br>Red %: ${redPercentage}% | Green %: ${greenPercentage}% | Blue %: ${bluePercentage}%`;
+      colorInfo.innerHTML += `<br>Red %: ${redPercentage}% | Green %: ${greenPercentage}% | Blue %: ${bluePercentage}%`;
 
-            // Approximate representation of drops of color for every component
-            const dropsOfRed = Math.round(rgb[0] / 15);
-            const dropsOfGreen = Math.round(rgb[1] / 15);
-            const dropsOfBlue = Math.round(rgb[2] / 15);
+      // Approximate representation of drops of color for every component
+      const dropsOfRed = Math.round(rgb[0] / 15);
+      const dropsOfGreen = Math.round(rgb[1] / 15);
+      const dropsOfBlue = Math.round(rgb[2] / 15);
 
-            colorInfo.innerHTML += `<br>Approx. Drops of Red: ${dropsOfRed} | Approx. Drops of Green: ${dropsOfGreen} | Approx. Drops of Blue: ${dropsOfBlue}`;
+      colorInfo.innerHTML += `<br>Approx. Drops of Red: ${dropsOfRed} | Approx. Drops of Green: ${dropsOfGreen} | Approx. Drops of Blue: ${dropsOfBlue}`;
 
-            // Set background color for representation boxes
-            colorBoxes.forEach(box => {
-                box.style.backgroundColor = selectedColor;
-            });
-        });
-    </script>
+      // Set background color for representation boxes
+      colorBoxes.forEach(box => {
+        box.style.backgroundColor = selectedColor;
+      });
+    });
+  </script>
 </body>
+
 </html>
